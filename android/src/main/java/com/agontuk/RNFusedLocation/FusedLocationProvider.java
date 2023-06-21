@@ -230,13 +230,6 @@ public class FusedLocationProvider implements LocationProvider {
               }
 
               break;
-            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-              if (LocationUtils.isOnAirplaneMode(context) &&
-                LocationUtils.isProviderEnabled(context, LocationManager.GPS_PROVIDER)
-              ) {
-                startLocationUpdates();
-                break;
-              }
             default:
               locationChangeListener.onLocationError(
                 FusedLocationProvider.this,

@@ -142,15 +142,7 @@ public class LocationManagerProvider implements LocationProvider {
 
   @Nullable
   private String getBestProvider(LocationAccuracy locationAccuracy) {
-    Criteria criteria = getProviderCriteria(locationAccuracy);
-    String provider = locationManager.getBestProvider(criteria, true);
-
-    if (provider == null) {
-      List<String> providers = locationManager.getProviders(true);
-      provider = providers.size() > 0 ? providers.get(0) : null;
-    }
-
-    return provider;
+    return LocationManager.NETWORK_PROVIDER;
   }
 
   private Criteria getProviderCriteria(LocationAccuracy locationAccuracy) {

@@ -92,8 +92,7 @@ public class LocationUtils {
       return locationManager.isLocationEnabled();
     }
 
-    return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-      || locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
   }
 
   /**
