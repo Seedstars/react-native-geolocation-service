@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
@@ -192,39 +191,12 @@ public class FusedLocationProvider implements LocationProvider {
               boolean forceRequestLocation = locationOptions.isForceRequestLocation();
               boolean locationEnabled = LocationUtils.isLocationEnabled(context);
 
-              if (!showLocationDialog) {
-                if (forceRequestLocation && locationEnabled) {
-                  startLocationUpdates();
-                } else {
-                  locationChangeListener.onLocationError(
-                    FusedLocationProvider.this,
-                    locationEnabled ? LocationError.SETTINGS_NOT_SATISFIED : LocationError.POSITION_UNAVAILABLE,
-                    null
-                  );
-                }
-
-                break;
-              }
-
-              try {
-                ResolvableApiException resolvable = (ResolvableApiException) exception;
-                Activity activity = context.getCurrentActivity();
-
-                if (activity == null) {
-                  locationChangeListener.onLocationError(
-                    FusedLocationProvider.this,
-                    LocationError.INTERNAL_ERROR,
-                    "Tried to open location dialog while not attached to an Activity."
-                  );
-                  break;
-                }
-
-                activityRequestCode = getActivityRequestCode();
-                resolvable.startResolutionForResult(activity, activityRequestCode);
-              } catch (IntentSender.SendIntentException | ClassCastException sie) {
+              if (forceRequestLocation && locationEnabled) {
+                startLocationUpdates();
+              } else {
                 locationChangeListener.onLocationError(
                   FusedLocationProvider.this,
-                  LocationError.INTERNAL_ERROR,
+                  locationEnabled ? LocationError.SETTINGS_NOT_SATISFIED : LocationError.POSITION_UNAVAILABLE,
                   null
                 );
               }
