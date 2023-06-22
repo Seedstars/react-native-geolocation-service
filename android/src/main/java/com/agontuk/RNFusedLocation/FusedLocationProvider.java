@@ -230,6 +230,9 @@ public class FusedLocationProvider implements LocationProvider {
               }
 
               break;
+            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+              // do nothing here since it needs GPS
+              break;
             default:
               locationChangeListener.onLocationError(
                 FusedLocationProvider.this,

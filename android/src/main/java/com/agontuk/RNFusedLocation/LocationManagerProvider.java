@@ -142,6 +142,10 @@ public class LocationManagerProvider implements LocationProvider {
 
   @Nullable
   private String getBestProvider(LocationAccuracy locationAccuracy) {
+    if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+      return null;
+    }
+
     return LocationManager.NETWORK_PROVIDER;
   }
 
